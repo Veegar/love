@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, black 0%, black 100%);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #message {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #04fffb;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            #message {
+                font-size: 2rem;
+            }
+        }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="message"></div>
+    <div class="background-animation" id="backgroundAnimation"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
+    <script>
+        const messageText = "I know I might not be the best with all this money and good stuffs but my affection for you will never change. Just know that I care and adore you so much maa love.";
+        const messageElement = document.getElementById('message');
+
+        let index = 0;
+
+        function typeText() {
+            if (index < messageText.length) {
+                messageElement.innerHTML += messageText.charAt(index);
+                index++;
+                setTimeout(typeText, 100);
+            } else {
+                setTimeout(deleteText, 2000);
+            }
+        }
+
+        function deleteText() {
+            if (index > 0) {
+                messageElement.innerHTML = messageElement.innerHTML.slice(0, -1);
+                index--;
+                setTimeout(deleteText, 100);
+            } else {
+                setTimeout(typeText, 1000);
+            }
+        }
+
+        typeText();
+
+        const animationContainer = document.getElementById('backgroundAnimation');
+        lottie.loadAnimation({
+            container: animationContainer,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://lottie.host/b7b45dd4-a7ee-4db6-90aa-2b327d66f13b/9uoZjI1ytm.json'
+        });
+    </script>
+</body>
+</html>
